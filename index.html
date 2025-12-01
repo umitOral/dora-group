@@ -1,11 +1,712 @@
-<!doctype html>
+<! doctype html>
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <title>Basit Sayfa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dora Group - Gıda Ürünleri</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    /* Header ve Navigasyon */
+    header {
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    . container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    . nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #f39c12;
+    }
+    
+    /* Slider */
+    .slider {
+      margin-top: 80px;
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+    
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .slide.active {
+      opacity: 1;
+    }
+    
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .slide-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      background: rgba(0,0,0,0.6);
+      padding: 2rem 4rem;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+    
+    .slide-content h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .slide-content p {
+      font-size: 1.3rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    /* Hakkımızda */
+    #hakkimizda {
+      padding: 4rem 0;
+      background: #f8f9fa;
+    }
+    
+    #hakkimizda h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+    
+    #hakkimizda p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      text-align: center;
+      line-height: 1.8;
+      color: #555;
+    }
+    
+    /* Ürünler */
+    #urunler {
+      padding: 4rem 0;
+    }
+    
+    #urunler h2 {
+      text-align: center;
+      font-size: 2. 5rem;
+      margin-bottom: 3rem;
+      color: #2c3e50;
+    }
+    
+    .urun-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .urun-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .urun-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .urun-img {
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+    }
+    
+    .urun-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .urun-card:hover .urun-img img {
+      transform: scale(1.1);
+    }
+    
+    .urun-info {
+      padding: 1.5rem;
+    }
+    
+    . urun-info h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+    
+    .urun-info p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .paket-secenekleri {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 2px solid #f0f0f0;
+    }
+    
+    .paket-secenekleri h4 {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .paket-list {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    
+    .paket-badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0. 9rem;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    /* İletişim */
+    #iletisim {
+      padding: 4rem 0;
+      background: #2c3e50;
+      color: white;
+    }
+    
+    #iletisim h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .iletisim-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .iletisim-item {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+    
+    .iletisim-item i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #f39c12;
+    }
+    
+    .iletisim-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .iletisim-item p {
+      font-size: 1.1rem;
+    }
+    
+    .iletisim-item a {
+      color: #f39c12;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    . iletisim-item a:hover {
+      color: #fff;
+    }
+    
+    /* Footer - Kurumsal Tasarım */
+    footer {
+      background: #1a252f;
+      color: #aaa;
+      padding: 3rem 0 1. 5rem 0;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-section h3 {
+      color: white;
+      font-size: 1.3rem;
+      margin-bottom: 1. 5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-section h3:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background: #3498db;
+    }
+    
+    .footer-section p {
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    . footer-section ul li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    .footer-section ul li:before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #3498db;
+    }
+    
+    .footer-section a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-section a:hover {
+      color: #3498db;
+    }
+    
+    .footer-info-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 0.8rem;
+    }
+    
+    .footer-info-item i {
+      color: #3498db;
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    . social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+    }
+    
+    .social-links a:hover {
+      background: #3498db;
+      transform: translateY(-3px);
+    }
+    
+    . footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1. 5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    
+    . footer-logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+      }
+      
+      .slide-content h2 {
+        font-size: 2rem;
+        padding: 1rem 2rem;
+      }
+      
+      .slide-content p {
+        font-size: 1rem;
+      }
+      
+      .slider {
+        height: 350px;
+      }
+      
+      .urun-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Merhaba Dünya!</h1>
-  <p>Bu, en basit HTML sayfasıdır.</p>
+  <!-- Header ve Navigasyon -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">DORA GROUP</a>
+        <ul class="nav-links">
+          <li><a href="#anasayfa">Ana Sayfa</a></li>
+          <li><a href="#hakkimizda">Hakkımızda</a></li>
+          <li><a href="#urunler">Ürünlerimiz</a></li>
+          <li><a href="#iletisim">İletişim</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Slider -->
+  <section id="anasayfa" class="slider">
+    <div class="slide active">
+      <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=1200&h=500&fit=crop" alt="Ayçiçek Yağı">
+      <div class="slide-content">
+        <h2>Kaliteli Ayçiçek Yağı</h2>
+        <p>Doğal ve saf yağlarımızla mutfağınıza lezzet katın</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1200&h=500&fit=crop" alt="Pirinç">
+      <div class="slide-content">
+        <h2>Pirinç & Bulgur</h2>
+        <p>En kaliteli tahıllarla sofranız bereketli olsun</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash. com/photo-1582006095638-dd3b87a0e7f5?w=1200&h=500&fit=crop" alt="Şeker">
+      <div class="slide-content">
+        <h2>Beyaz Şeker</h2>
+        <p>Günlük ihtiyaçlarınız için en taze ürünler</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://images. unsplash.com/photo-1556910633-5099dc3971e8?w=1200&h=500&fit=crop" alt="Gıda Ürünleri">
+      <div class="slide-content">
+        <h2>Toptan & Perakende</h2>
+        <p>1 kg'dan 50 kg'a kadar her boyutta paket seçeneği</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hakkımızda -->
+  <section id="hakkimizda">
+    <div class="container">
+      <h2>Hakkımızda</h2>
+      <p>
+        Dora Group, gıda sektöründe kalite ve güvenin adresidir. Yılların deneyimi ile 
+        müşterilerimize en taze, en kaliteli ve en uygun fiyatlı temel gıda ürünlerini sunmaktayız.
+        Yağ, bulgur, pirinç ve şeker gibi mutfağın vazgeçilmez ürünlerinde uzmanlaşmış olan firmamız,
+        hem perakende hem de toptan satış hizmetleri vermektedir.  Ürünlerimiz 1 kg, 5 kg ve 50 kg'lık 
+        paket seçenekleriyle her ihtiyaca uygun çözümler sunar.  Müşteri memnuniyetini ön 
+        planda tutarak, gıda sektöründe fark yaratmaya devam ediyoruz.
+      </p>
+    </div>
+  </section>
+
+  <!-- Ürünler -->
+  <section id="urunler">
+    <div class="container">
+      <h2>Ürünlerimiz</h2>
+      <div class="urun-grid">
+        <!-- Yağ -->
+        <div class="urun-card">
+          <div class="urun-img">
+            <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=250&fit=crop" alt="Ayçiçek Yağı">
+          </div>
+          <div class="urun-info">
+            <h3>Ayçiçek Yağı</h3>
+            <p>Doğal ve saf ayçiçek yağı.  Mutfağınızın en önemli yardımcısı, sağlıklı ve lezzetli yemekler için ideal.</p>
+            <div class="paket-secenekleri">
+              <h4>📦 Paket Seçenekleri:</h4>
+              <div class="paket-list">
+                <span class="paket-badge">1 kg</span>
+                <span class="paket-badge">5 kg</span>
+                <span class="paket-badge">50 kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Bulgur -->
+        <div class="urun-card">
+          <div class="urun-img">
+            <img src="https://images.unsplash.com/photo-1599909533661-3ada0cd59df7?w=400&h=250&fit=crop" alt="Bulgur">
+          </div>
+          <div class="urun-info">
+            <h3>Bulgur</h3>
+            <p>Geleneksel lezzetlerin vazgeçilmezi pilavlık bulgur. Yüksek kaliteli, özenle işlenmiş ve besleyici.</p>
+            <div class="paket-secenekleri">
+              <h4>📦 Paket Seçenekleri:</h4>
+              <div class="paket-list">
+                <span class="paket-badge">1 kg</span>
+                <span class="paket-badge">5 kg</span>
+                <span class="paket-badge">50 kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pirinç -->
+        <div class="urun-card">
+          <div class="urun-img">
+            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=250&fit=crop" alt="Pirinç">
+          </div>
+          <div class="urun-info">
+            <h3>Pirinç</h3>
+            <p>Özenle seçilmiş, tanesi tanesi kaliteli pirinç. Her pilavda mükemmel sonuç için ideal ürün.</p>
+            <div class="paket-secenekleri">
+              <h4>📦 Paket Seçenekleri:</h4>
+              <div class="paket-list">
+                <span class="paket-badge">1 kg</span>
+                <span class="paket-badge">5 kg</span>
+                <span class="paket-badge">50 kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Şeker -->
+        <div class="urun-card">
+          <div class="urun-img">
+            <img src="https://images.unsplash. com/photo-1582006095638-dd3b87a0e7f5?w=400&h=250&fit=crop" alt="Şeker">
+          </div>
+          <div class="urun-info">
+            <h3>Beyaz Şeker</h3>
+            <p>Kristal beyaz şeker. Tatlılarınızdan çayınıza kadar her kullanım için saf ve kaliteli şeker.</p>
+            <div class="paket-secenekleri">
+              <h4>📦 Paket Seçenekleri:</h4>
+              <div class="paket-list">
+                <span class="paket-badge">1 kg</span>
+                <span class="paket-badge">5 kg</span>
+                <span class="paket-badge">50 kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- İletişim -->
+  <section id="iletisim">
+    <div class="container">
+      <h2>İletişim</h2>
+      <div class="iletisim-content">
+        <div class="iletisim-item">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
+          <h3>Telefon</h3>
+          <p><a href="tel:05457454771">0545 745 47 71</a></p>
+        </div>
+        
+        <div class="iletisim-item">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">📧</div>
+          <h3>E-posta</h3>
+          <p><a href="mailto:ibrahimmokmen@gmail.com">ibrahimmokmen@gmail.com</a></p>
+        </div>
+        
+        <div class="iletisim-item">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">📍</div>
+          <h3>Adres</h3>
+          <p>Mardin / Türkiye</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer - Kurumsal -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <!-- Firma Bilgileri -->
+        <div class="footer-section">
+          <span class="footer-logo">DORA GROUP</span>
+          <p>Gıda sektöründe kalite ve güvenin adresi.  Yılların deneyimi ile müşterilerimize en kaliteli ürünleri sunuyoruz.</p>
+          <div class="social-links">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="LinkedIn">💼</a>
+          </div>
+        </div>
+        
+        <!-- Hızlı Linkler -->
+        <div class="footer-section">
+          <h3>Hızlı Linkler</h3>
+          <ul>
+            <li><a href="#anasayfa">Ana Sayfa</a></li>
+            <li><a href="#hakkimizda">Hakkımızda</a></li>
+            <li><a href="#urunler">Ürünlerimiz</a></li>
+            <li><a href="#iletisim">İletişim</a></li>
+          </ul>
+        </div>
+        
+        <!-- Ürünlerimiz -->
+        <div class="footer-section">
+          <h3>Ürünlerimiz</h3>
+          <ul>
+            <li><a href="#urunler">Ayçiçek Yağı</a></li>
+            <li><a href="#urunler">Bulgur</a></li>
+            <li><a href="#urunler">Pirinç</a></li>
+            <li><a href="#urunler">Beyaz Şeker</a></li>
+          </ul>
+        </div>
+        
+        <!-- İletişim Bilgileri -->
+        <div class="footer-section">
+          <h3>İletişim Bilgileri</h3>
+          <div class="footer-info-item">
+            <span>📍</span>
+            <span>Mardin / Türkiye</span>
+          </div>
+          <div class="footer-info-item">
+            <span>📱</span>
+            <a href="tel:05457454771">0545 745 47 71</a>
+          </div>
+          <div class="footer-info-item">
+            <span>📧</span>
+            <a href="mailto:ibrahimmokmen@gmail.com">ibrahimmokmen@gmail.com</a>
+          </div>
+          <div class="footer-info-item">
+            <span>🕐</span>
+            <span>Pazartesi - Cumartesi: 09:00 - 18:00</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer Alt -->
+      <div class="footer-bottom">
+        <p>&copy; 2025 Dora Group. Tüm hakları saklıdır.  | Tasarım ve Geliştirme</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slider JavaScript -->
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[index]. classList.add('active');
+    }
+    
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+    
+    // Otomatik slider (her 4 saniyede bir)
+    setInterval(nextSlide, 4000);
+    
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]'). forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
