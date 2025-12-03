@@ -71,12 +71,41 @@
       background-color: white;
     }
     
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      transition: all 0.3s;
+      border-radius: 2px;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    
     /* Slider */
     .slider {
-      margin-top: 80px;
+      margin-top: 100px;
+      margin-bottom: 20px;
       position: relative;
-      height: 500px;
+      height: 400px;
       overflow: hidden;
+      border-radius: 15px;
     }
     
     .slide {
@@ -119,6 +148,65 @@
     .slide-content p {
       font-size: 1.3rem;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    /* Slider Kontrolleri */
+    .slider-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 20px;
+      z-index: 10;
+    }
+    
+    .slider-btn {
+      background: rgba(255,255,255,0.3);
+      border: 2px solid white;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+    }
+    
+    .slider-btn:hover {
+      background: rgba(255,255,255,0.8);
+      color: #2c3e50;
+      transform: scale(1.1);
+    }
+    
+    .slider-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid white;
+    }
+    
+    .dot.active {
+      background: white;
+      transform: scale(1.3);
     }
     
     /* Hakkımızda */
@@ -194,7 +282,7 @@
       padding: 1.5rem;
     }
     
-    . urun-info h3 {
+    .urun-info h3 {
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
       color: #2c3e50;
@@ -233,6 +321,32 @@
       font-size: 0. 9rem;
       font-weight: 600;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .fiyat-bilgisi {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 2px solid #f0f0f0;
+      text-align: center;
+    }
+    
+    .fiyat-bilgisi p {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+    }
+    
+    .fiyat {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #27ae60;
+      margin: 0.5rem 0;
+    }
+    
+    .fiyat-alt-yazi {
+      font-size: 0.85rem;
+      color: #999;
+      font-style: italic;
     }
     
     /* İletişim */
@@ -284,7 +398,7 @@
       transition: color 0.3s;
     }
     
-    . iletisim-item a:hover {
+    .iletisim-item a:hover {
       color: #fff;
     }
     
@@ -365,16 +479,14 @@
       margin-top: 0.2rem;
     }
     
-
-    
-    . footer-bottom {
+    .footer-bottom {
       border-top: 1px solid rgba(255,255,255,0.1);
       padding-top: 1. 5rem;
       text-align: center;
       font-size: 0.9rem;
     }
     
-    . footer-logo {
+    .footer-logo {
       font-size: 1.8rem;
       font-weight: bold;
       color: white;
@@ -385,13 +497,59 @@
     
     /* Responsive */
     @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+      .slide-content {
+      
+      padding: 0rem;
+      
+    }
+      
+      .hamburger {
+        display: flex;
+      }
+      
       .nav-links {
-        gap: 1rem;
-        font-size: 0.9rem;
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 70%;
+        height: calc(100vh - 70px);
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 0;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .nav-links li {
+        width: 100%;
+        text-align: left;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      .nav-links a {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1.1rem;
       }
       
       .logo {
         font-size: 1.5rem;
+      }
+      
+      /* Slider mobilde tam genişlik */
+      .slider {
+        border-radius: 0;
+        margin-left: -20px;
+        margin-right: -20px;
+        width: calc(100% + 40px);
       }
       
       .slide-content h2 {
@@ -404,7 +562,14 @@
       }
       
       .slider {
-        height: 350px;
+        height: 300px;
+        margin-top: 80px;
+      }
+      
+      .slider-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
       }
       
       .urun-grid {
@@ -424,6 +589,11 @@
     <div class="container">
       <nav>
         <a href="#" class="logo">DORA GROUP</a>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <ul class="nav-links">
           <li><a href="#anasayfa">Ana Sayfa</a></li>
           <li><a href="#hakkimizda">Hakkımızda</a></li>
@@ -435,36 +605,64 @@
   </header>
 
   <!-- Slider -->
-  <section id="anasayfa" class="slider">
-    <div class="slide active">
+  <div class="container" style="margin-top: 80px;">
+    <section id="anasayfa" class="slider">
+      <div class="slide active">
       <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=1200&h=500&fit=crop" alt="Ayçiçek Yağı">
       <div class="slide-content">
         <h2>Kaliteli Ayçiçek Yağı</h2>
-        <p>Doğal ve saf yağlarımızla mutfağınıza lezzet katın</p>
       </div>
     </div>
     <div class="slide">
-      <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1200&h=500&fit=crop" alt="Pirinç">
+      <img src="https://hasata.com.tr/Data/EditorFiles/pirinc-cesitleri-ve-faydalari.jpg" alt="Pirinç">
       <div class="slide-content">
         <h2>Pirinç & Bulgur</h2>
-        <p>En kaliteli tahıllarla sofranız bereketli olsun</p>
+       
       </div>
     </div>
     <div class="slide">
       <img src="https://png.pngtree.com/thumb_back/fh260/background/20220311/pngtree-white-sugar-white-granulated-sugar-seasoning-image_1025968.jpg" alt="Şeker">
       <div class="slide-content">
         <h2>Beyaz Şeker</h2>
-        <p>Günlük ihtiyaçlarınız için en taze ürünler</p>
+        
       </div>
     </div>
     <div class="slide">
       <img src="https://media.istockphoto.com/id/1416939029/vector/cardboard-illustration-3-different-size.jpg?s=612x612&w=0&k=20&c=liVkd2gn7SDPnorzIbes4YrTP8jQN4teG46v5hJGGN0=" alt="Gıda Ürünleri">
       <div class="slide-content">
         <h2>Toptan & Perakende</h2>
-        <p>1 kg'dan 50 kg'a kadar her boyutta paket seçeneği</p>
       </div>
     </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1598511726623-d2e9996892f0?w=1200&h=500&fit=crop" alt="Domates Salçası">
+      <div class="slide-content">
+        <h2>Domates Salçası</h2>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://www.hataytadinda.com/wp-content/uploads/2019/12/k%C4%B1rm%C4%B1z%C4%B1-mercimek.jpg" alt="Mercimek">
+      <div class="slide-content">
+        <h2>Mercimek</h2>
+      </div>
+    </div>
+    
+    <!-- Slider Kontrolleri -->
+    <div class="slider-controls">
+      <button class="slider-btn" id="prevBtn">‹</button>
+      <button class="slider-btn" id="nextBtn">›</button>
+    </div>
+    
+    <!-- Slider Noktaları -->
+    <div class="slider-dots">
+      <span class="dot active" data-slide="0"></span>
+      <span class="dot" data-slide="1"></span>
+      <span class="dot" data-slide="2"></span>
+      <span class="dot" data-slide="3"></span>
+      <span class="dot" data-slide="4"></span>
+      <span class="dot" data-slide="5"></span>
+    </div>
   </section>
+  </div>
 
   <!-- Hakkımızda -->
   <section id="hakkimizda">
@@ -497,10 +695,13 @@
             <div class="paket-secenekleri">
               <h4>📦 Paket Seçenekleri:</h4>
               <div class="paket-list">
-                <span class="paket-badge">1 kg</span>
-                <span class="paket-badge">5 kg</span>
-                <span class="paket-badge">50 kg</span>
+                <span class="paket-badge">18 lt</span>
               </div>
+            </div>
+            <div class="fiyat-bilgisi">
+              
+              <div class="fiyat">1850 ₺</div>
+              <p class="fiyat-alt-yazi">Fiyatlar paket seçeneğine göre değişir</p>
             </div>
           </div>
         </div>
@@ -508,7 +709,7 @@
         <!-- Bulgur -->
         <div class="urun-card">
           <div class="urun-img">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Bulgur2.jpg" alt="Bulgur">
+            <img src="https://www.makbul.com/Content/global/images/products/8/88/big-koftelik-bulgur-kg644.jpg" alt="Bulgur">
           </div>
           <div class="urun-info">
             <h3>Bulgur</h3>
@@ -516,10 +717,14 @@
             <div class="paket-secenekleri">
               <h4>📦 Paket Seçenekleri:</h4>
               <div class="paket-list">
-                <span class="paket-badge">1 kg</span>
-                <span class="paket-badge">5 kg</span>
-                <span class="paket-badge">50 kg</span>
+                <span class="paket-badge">25 kg</span>
+
               </div>
+            </div>
+            <div class="fiyat-bilgisi">
+              
+              <div class="fiyat">1450 ₺</div>
+              <p class="fiyat-alt-yazi">Fiyatlar paket seçeneğine göre değişir</p>
             </div>
           </div>
         </div>
@@ -527,7 +732,7 @@
         <!-- Pirinç -->
         <div class="urun-card">
           <div class="urun-img">
-            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=250&fit=crop" alt="Pirinç">
+            <img src="https://hasata.com.tr/Data/EditorFiles/pirinc-cesitleri-ve-faydalari.jpg" alt="Pirinç">
           </div>
           <div class="urun-info">
             <h3>Pirinç</h3>
@@ -535,10 +740,14 @@
             <div class="paket-secenekleri">
               <h4>📦 Paket Seçenekleri:</h4>
               <div class="paket-list">
-                <span class="paket-badge">1 kg</span>
-                <span class="paket-badge">5 kg</span>
-                <span class="paket-badge">50 kg</span>
+                <span class="paket-badge">25 kg</span>
+               
               </div>
+            </div>
+            <div class="fiyat-bilgisi">
+              
+              <div class="fiyat">1600 ₺</div>
+              <p class="fiyat-alt-yazi">Fiyatlar paket seçeneğine göre değişir</p>
             </div>
           </div>
         </div>
@@ -554,10 +763,59 @@
             <div class="paket-secenekleri">
               <h4>📦 Paket Seçenekleri:</h4>
               <div class="paket-list">
-                <span class="paket-badge">1 kg</span>
-                <span class="paket-badge">5 kg</span>
                 <span class="paket-badge">50 kg</span>
               </div>
+            </div>
+            <div class="fiyat-bilgisi">
+              
+              <div class="fiyat">40 ₺</div>
+              <p class="fiyat-alt-yazi">Fiyatlar paket seçeneğine göre değişir</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Domates Salçası -->
+        <div class="urun-card">
+          <div class="urun-img">
+            <img src="https://static.ticimax.cloud/49267/uploads/urunresimleri/buyuk/ev-yapimi-hatay-domates-salcasi-1-kg-6c4a6f.jpg" alt="Domates Salçası">
+          </div>
+          <div class="urun-info">
+            <h3>Domates Salçası</h3>
+            <p>Yöresel üretim, geleneksel tat. Yemeklerinize renk ve lezzet katacak, kalın kıvamlı domates salçası.</p>
+            <div class="paket-secenekleri">
+              <h4>📦 Paket Seçenekleri:</h4>
+              <div class="paket-list">
+                <span class="paket-badge">5 kg</span>
+               
+              </div>
+            </div>
+            <div class="fiyat-bilgisi">
+              
+              <div class="fiyat">550 ₺</div>
+              <p class="fiyat-alt-yazi">Fiyatlar paket seçeneğine göre değişir</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mercimek -->
+        <div class="urun-card">
+          <div class="urun-img">
+            <img src="https://www.hataytadinda.com/wp-content/uploads/2019/12/k%C4%B1rm%C4%B1z%C4%B1-mercimek.jpg" alt="Mercimek">
+          </div>
+          <div class="urun-info">
+            <h3>Kırmızı Mercimek</h3>
+            <p>Protein açısından zengin, tür çorbası ve yemekleri için ideal. Temiz ve kaliteli mercimek.</p>
+            <div class="paket-secenekleri">
+              <h4>📦 Paket Seçenekleri:</h4>
+              <div class="paket-list">
+                <span class="paket-badge">25 kg</span>
+                
+              </div>
+            </div>
+            <div class="fiyat-bilgisi">
+              
+              <div class="fiyat">600 ₺</div>
+              <p class="fiyat-alt-yazi">Fiyatlar paket seçeneğine göre değişir</p>
             </div>
           </div>
         </div>
@@ -579,7 +837,7 @@
         <div class="iletisim-item">
           <div style="font-size: 3rem; margin-bottom: 1rem;">📧</div>
           <h3>E-posta</h3>
-          <p><a href="mailto:ibrahimmokmen@gmail.com">ibrahimmokmen@gmail.com</a></p>
+          <p><a href="mailto:"doragroup01@gmail.com"">doragroup01@gmail.com</a></p>
         </div>
         
         <div class="iletisim-item">
@@ -637,7 +895,7 @@
           </div>
           <div class="footer-info-item">
             <span>📧</span>
-            <a href="mailto:ibrahimmokmen@gmail.com">ibrahimmokmen@gmail.com</a>
+            <a href="mailto:doragroup01@gmail.com">doragroup01@gmail.com</a>
           </div>
           <div class="footer-info-item">
             <span>🕐</span>
@@ -657,20 +915,58 @@
   <script>
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
     const totalSlides = slides.length;
     
     function showSlide(index) {
       slides.forEach(slide => slide.classList.remove('active'));
-      slides[index]. classList.add('active');
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+      currentSlide = index;
     }
     
     function nextSlide() {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      showSlide(currentSlide);
+      let next = (currentSlide + 1) % totalSlides;
+      showSlide(next);
     }
     
-    // Otomatik slider (her 4 saniyede bir)
-    setInterval(nextSlide, 4000);
+    function prevSlide() {
+      let prev = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(prev);
+    }
+    
+    // Buton kontrolleri
+    document.getElementById('nextBtn').addEventListener('click', nextSlide);
+    document.getElementById('prevBtn').addEventListener('click', prevSlide);
+    
+    // Nokta navigasyonu
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        showSlide(parseInt(dot.getAttribute('data-slide')));
+      });
+    });
+    
+    // Otomatik slider (her 5 saniyede bir)
+    setInterval(nextSlide, 5000);
+    
+    // Hamburger menü
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+    
+    // Menü linklerine tıklandığında menüyü kapat
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
     
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]'). forEach(anchor => {
